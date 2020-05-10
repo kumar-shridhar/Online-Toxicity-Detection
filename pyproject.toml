@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "panini"
+name = "apollo"
 version = "0.1.0"
-description = "Panini is a language processing toolkit for Indian languages."
-authors = ["Ayushman Dash <dash.ayushman.99@gmail.com>", "Bhupen Chauhan", "Kumar Shridhar"]
+description = "Apollo is a toolkit for levitation opportunites."
+authors = ["Mohammed Naveed Akram", "Sadique Adnan Siddiqui", "Ritu Yadav", "Venkatesh Iyer", "Ashutosh Mishra", "Kumar Shridhar"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
