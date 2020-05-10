@@ -1,5 +1,5 @@
-# Panini
-A natural language processing toolkit for Indian languages
+# APOLLO-1
+Applcation of Learning to Levitate Opportunities - 1
 
 # Dev Setup
 
