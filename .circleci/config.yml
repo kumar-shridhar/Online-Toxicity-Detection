@@ -10,7 +10,7 @@ orbs:
 
 jobs:
   install-dependencies:
-    working_directory: ~/panini-workdir
+    working_directory: ~/apollo-workdir
     docker:
       - image: circleci/python:3.7.6
     steps:
@@ -49,11 +49,11 @@ jobs:
       - persist_to_workspace:
           root: /home/circleci
           paths:
-            - panini-workdir
+            - apollo-workdir
             - .local
 
   test:
-    working_directory: ~/panini-workdir
+    working_directory: ~/apollo-workdir
     docker:
       - image: circleci/python:3.7.6
     steps:
