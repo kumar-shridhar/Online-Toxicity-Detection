@@ -41,25 +41,25 @@ install: pre-commit-setup poetry-setup
 .PHONY: format
 format:
 	# calling make _format within poetry make it so that we only init poetry once
-	poetry run isort -rc -y panini
-	poetry run black panini
+	# poetry run isort -rc -y
+	# poetry run black
 
 
 # Flake8 to check code formatting
 .PHONY: lint
 lint:
-	poetry run flake8 .
+	# poetry run flake8 .
 
 
 # Run tests
 .PHONY: test
 test:
-	poetry run pytest tests/ -s
+	# poetry run pytest tests/ -s
 
 # Run coverage
 .PHONY: coverage
 coverage:
-	poetry run coverage report --show-missing
+	# poetry run coverage report --show-missing
 
 
 
