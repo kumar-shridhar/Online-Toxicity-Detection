@@ -13,9 +13,4 @@ repos:
         language: system
         types: [python]
         require_serial: true
-      - id: update-lockfile
-        name: Update the lock file
-        entry: poetry lock
-        language: system
-        files: 'pyproject.toml'
-        pass_filenames: false
+
