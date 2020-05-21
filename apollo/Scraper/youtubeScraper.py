@@ -17,6 +17,7 @@ import sys
 import uuid
 import shutil
 
+from apollo.Scraper.config import OUTPUT_PATH
 from apollo.Scraper.download_comments import download_comments
 
 
@@ -56,9 +57,8 @@ def main(argv):
                     break
         print('\nDone!')
         
-        # Take path parameter from config file
-        path= "/home/MG10/Desktop/Scraping_script/All_output/"
-        shutil.copy(output,path)
+        # Take path parameter from config file        
+        shutil.copy(output,OUTPUT_PATH)
         os.remove(output)
 
     except Exception as e:
