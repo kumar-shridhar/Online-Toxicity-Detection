@@ -15,6 +15,7 @@ import io
 import json
 import sys
 import uuid
+import shutil
 
 from apollo.Scraper.download_comments import download_comments
 
