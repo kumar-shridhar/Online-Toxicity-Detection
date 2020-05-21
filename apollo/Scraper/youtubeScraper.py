@@ -14,6 +14,7 @@ import argparse
 import io
 import json
 import sys
+import uuid
 
 from apollo.Scraper.download_comments import download_comments
 
@@ -31,7 +32,8 @@ def main(argv):
         args = parser.parse_args(argv)
 
         youtube_id = args.youtubeid
-        output = args.output
+        output = str(args.youtubeid)+ "_"+str(uuid.uuid1())
+#         output = args.output
         limit = args.limit
 
         if not youtube_id or not output:
@@ -52,6 +54,11 @@ def main(argv):
                 if limit and count >= limit:
                     break
         print('\nDone!')
+        
+        # Take path parameter from config file
+        path= "/home/MG10/Desktop/Scraping_script/All_output/"
+        shutil.copy(output,path)
+        os.remove(output)
 
     except Exception as e:
         print('Error:', str(e))
