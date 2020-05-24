@@ -19,6 +19,7 @@ import shutil
 
 from apollo.Scraper.config import OUTPUT_PATH
 from apollo.Scraper.download_comments import download_comments
+from apollo.Scraper.helper import read_json, write_csv
 
 
 def main(argv):
@@ -57,9 +58,12 @@ def main(argv):
                     break
         print('\nDone!')
         
-        # Take path parameter from config file        
-        shutil.copy(output,OUTPUT_PATH)
+        output_filename= output+'.csv'
+        write_csv(read_json(output), output_filename)
         os.remove(output)
+        # Take path parameter from config file        
+        shutil.copy(output_filename,OUTPUT_PATH)
+        os.remove(output_filename)
 
     except Exception as e:
         print('Error:', str(e))

@@ -40,3 +40,13 @@ def search_dict(partial, key):
         for i in partial:
             for o in search_dict(i, key):
                 yield o
+                
+def read_json(filename):
+    return [json.loads(line) for line in open(filename, 'r')]
+
+def write_csv(data,filename):
+    with open(filename, 'w+') as outf:
+        writer = csv.DictWriter(outf, data[0].keys())
+        writer.writeheader()
+        for row in data:
+            writer.writerow(row)
