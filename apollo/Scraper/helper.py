@@ -9,6 +9,7 @@ Code modified from : https://github.com/egbertbouman/youtube-comment-downloader
 '''
 
 import time
+import json, csv
 
 
 def find_value(html, key, num_chars=2, separator='"'):
@@ -22,10 +23,13 @@ def ajax_request(session, url, params=None, data=None, headers=None, retries=5, 
         response = session.post(url, params=params, data=data, headers=headers)
         if response.status_code == 200:
             return response.json()
+        if response.status_code == 400:
+            return print(f'Error: {response.status_code}. Make sure the entered YouTube ID is correct.')
         if response.status_code in [403, 413]:
-            return {}
+            return print(f'Error: {response.status_code}')
         else:
             time.sleep(sleep)
+
 
 
 def search_dict(partial, key):
