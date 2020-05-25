@@ -22,22 +22,13 @@ from apollo.Scraper.download_comments import download_comments
 from apollo.Scraper.helper import read_json, write_csv
 
 
-def main(argv):
-    parser = argparse.ArgumentParser(add_help=False,
-                                     description=('Download Youtube comments without using the Youtube API'))
-    parser.add_argument('--help', '-h', action='help', default=argparse.SUPPRESS,
-                        help='Show this help message and exit')
-    parser.add_argument('--youtubeid', '-y', help='ID of Youtube video for which to download the comments')
-    parser.add_argument('--output', '-o', help='Output filename (output format is line delimited JSON)')
-    parser.add_argument('--limit', '-l', type=int, help='Limit the number of comments')
-
+def scrapper():
+   
     try:
-        args = parser.parse_args(argv)
-
-        youtube_id = args.youtubeid
-        output = str(args.youtubeid)+ "_"+str(uuid.uuid1())
+        youtube_id = YOUTUBE_ID
+        output = str(youtube_id)+"_"+str(uuid.uuid1())
 #         output = args.output
-        limit = args.limit
+        limit = LIMIT
 
         if not youtube_id or not output:
             parser.print_usage()
@@ -71,4 +62,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    scrapper()
