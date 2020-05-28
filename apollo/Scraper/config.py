@@ -16,7 +16,6 @@ def update_youtube_id(id):
 YOUTUBE_VIDEO_URL = "https://www.youtube.com/watch?v={youtube_id}"
 YOUTUBE_COMMENTS_AJAX_URL_OLD = "https://www.youtube.com/comment_ajax"
 YOUTUBE_COMMENTS_AJAX_URL_NEW = "https://www.youtube.com/comment_service_ajax"
-OUTPUT_PATH = "/output" #currently it is loading in local
 YOUTUBE_ID = "s4ShMqGfEvo"
 LIMIT = 25
 

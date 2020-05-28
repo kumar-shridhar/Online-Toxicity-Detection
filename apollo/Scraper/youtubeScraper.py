@@ -19,7 +19,7 @@ import shutil
 
 import requests
 
-from apollo.Scraper.config import OUTPUT_PATH, YOUTUBE_ID, LIMIT, YOUTUBE_VIDEO_URL, USER_AGENT
+from apollo.Scraper.config import YOUTUBE_ID, LIMIT, YOUTUBE_VIDEO_URL, USER_AGENT
 from apollo.Scraper.download_comments import download_comments
 from apollo.Scraper.helper import read_json, write_csv
 
@@ -65,7 +65,6 @@ def scrapper():
             write_csv(read_json(output), output_filename)
             os.remove(output)
             # Take path parameter from config file
-            shutil.copy(output_filename,OUTPUT_PATH)
             os.remove(output_filename)
 
         else:

@@ -4,7 +4,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import sys
 
 sys.path.append('..')
-from apollo.Scraper.config import update_youtube_id, OUTPUT_PATH
+from apollo.Scraper.config import update_youtube_id
 from apollo.Scraper.youtubeScraper import scrapper
 #from apollo.inference.inference import inference
 
@@ -22,7 +22,6 @@ def scrape_data(COMMENT_LINK):
 def load_csv(COMMENT_LINK):
 
     output_file_name = scrape_data(COMMENT_LINK)
-    outfile_path = OUTPUT_PATH + '/' + output_file_name
     return outfile_path
 
 def final_infer(COMMENT_LINK):
