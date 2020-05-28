@@ -1,0 +1,4 @@
+transformers
+tqdm
+flask
+flask_wtf
