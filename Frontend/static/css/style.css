@@ -7,7 +7,7 @@
 .btn-primary.active { color: rgba(255, 255, 255, 0.75); }
 .btn-primary { background-color: #4a77d4; background-image: -moz-linear-gradient(top, #6eb6de, #4a77d4); background-image: -ms-linear-gradient(top, #6eb6de, #4a77d4); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6eb6de), to(#4a77d4)); background-image: -webkit-linear-gradient(top, #6eb6de, #4a77d4); background-image: -o-linear-gradient(top, #6eb6de, #4a77d4); background-image: linear-gradient(top, #6eb6de, #4a77d4); background-repeat: repeat-x; filter: progid:dximagetransform.microsoft.gradient(startColorstr=#6eb6de, endColorstr=#4a77d4, GradientType=0);  border: 1px solid #3762bc; text-shadow: 1px 1px 1px rgba(0,0,0,0.4); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5); }
 .btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] { filter: none; background-color: #4a77d4; }
-.btn-block { width: 100%; display:block; }
+.btn-block { width: 50%; display:inline-block; }
 
 * { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -ms-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box; }
 
@@ -32,14 +32,165 @@ body {
 }
 .login {
 	position: absolute;
-	top: 40%;
+	top: 50%;
 	left: 50%;
 	margin: -150px 0 0 -150px;
 	width:400px;
 	height:400px;
 }
 
+.slider{
+	position: absolute;
+/*     writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical; */
+	margin: -160px 0 0 550px;
+	width:100px;
+	height:50px;
+    display: block;
+}
+
+/* .slider{
+	position: relative;
+	top: 0%;
+	left: 99%;
+	margin: -150px 0 0 -150px;
+	width:10px;
+	height:50px;
+    display: inline-block;
+} */
+
 .login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+
+.container.fullwidth {
+  width: 100%; 
+  }
+.container.no-padding {
+  padding-left: 0;
+  padding-right: 0; 
+  }
+/* Nav Meu Container */
+#nav-menu-container {
+  margin: 0; }
+
+@media (min-width: 1024px) {
+  #nav-menu-container {
+    padding-right: 60px; } }
+@media (max-width: 768px) {
+  #nav-menu-container {
+    display: inline; } }
+
+@media (max-width: 800px) {
+  #mobile-nav-toggle {
+    display: inline; }
+
+  #nav-menu-container {
+    display: inline; } }
+
+/* Nav Meu Styling */
+.nav-menu a {
+  padding: 0 8px 0px 8px;
+  text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  font-size: 14px;
+  text-transform: capitalize;
+  outline: none; }
+
+.nav-menu li:hover > a, .nav-menu > a {
+  color: #222222; }
+
+.nav-menu > li {
+  margin-left: 10px; }
+
+.nav-menu ul {
+  margin: 27px 0 0 0;
+  padding: 10px;
+  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+  background: #fff; }
+
+.nav-menu ul li {
+  transition: 0.3s;
+  display:inline;  }
+
+ul li {
+  display:inline;
+  }
+
+.nav-menu ul li a {
+  padding: 10px;
+  color: #333;
+  transition: 0.3s;
+  display: block;
+  font-size: 12px;
+  text-transform: none; }
+
+.nav-menu ul li:hover > a {
+  color: #39cfca; }
+
+.nav-menu ul ul {
+  margin: 0;
+  }
+
+#header.header-scrolled {
+  background: rgba(0, 0, 0, 0.9);
+  transition: all 0.5s; }
+  #header.header-scrolled .nav-menu li:hover > a, #header.header-scrolled .nav-menu > .menu-active > a {
+    color: #39cfca; }
+
+.align-items-center {
+    -ms-flex-align: center !important;
+    align-items: center !important
+}
+
+.justify-content-between {
+    -ms-flex-pack: justify !important;
+    justify-content: space-between !important
+}
+
+.d-flex {
+    display: -ms-flexbox !important;
+    display: flex !important
+}
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px
+}
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto
+}
+
+@media (min-width:576px) {
+    .container {
+        max-width: 540px
+    }
+}
+
+@media (min-width:768px) {
+    .container {
+        max-width: 720px
+    }
+}
+
+@media (min-width:992px) {
+    .container {
+        max-width: 960px
+    }
+}
+
+@media (min-width:1200px) {
+    .container {
+        max-width: 1140px
+    }
+}
+
 
 input {
 	width: 100%;

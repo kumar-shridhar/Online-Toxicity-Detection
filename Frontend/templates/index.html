@@ -3,7 +3,7 @@
 <!--From https://codepen.io/frytyler/pen/EGdtg-->
 <head>
   <meta charset="UTF-8">
-  <title>ML API</title>
+  <title>Toxicity</title>
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
@@ -13,19 +13,71 @@
 </head>
 
 <body>
+	<header id="header">
+		<div class="container">
+			<div class="row align-items-center justify-content-between d-flex">
+				<div id="logo">
+					<img src="static/img/LogoMakr_2DoISf.png" alt="" title="" width="200" height="100" style="float:left"/>
+				</div>
+				<nav id="nav-menu-container">
+					<ul class="nav-menu">
+						<li class="menu-active"><a href="index.html">Home</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="https://github.com/">Github</a></li>
+						<li><a href="https://medium.com/">Medium</a></li>
+						<li><a href="about.html">Contact</a></li>
+					</ul>
+				</nav><!-- #nav-menu-container -->
+			</div>
+		</div>
+	</header>
+
+
  <div class="login">
-	<h1>Enter your Youtube ID</h1>
+	<h3>Enter your Youtube URL</h3>
+    <script type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 2000); </script>
+    {% block content %}
+    <div class="container" id="successMessage">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <!-- <button type="button" class="close" data-dismiss="alert">&times;</button> -->
+            <!-- {{ message }} -->
+            <p style="color:red">{{ message }}</p>
+        </div>
+        {% endfor %}
+
+        {% block page_content %}{% endblock %}
+    </div>
+    {% endblock %}
 
      <!-- Main Input For Receiving Query to our ML -->
     <form action="{{ url_for('predict')}}"method="post">
-    	<input type="text" name="experience" placeholder="Youtube ID" required="required" />
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    	<input type="text" name="experience" placeholder="Youtube URL" required="required" />
+        <button type="submit" class="btn btn-primary btn-block btn-large">Find Toxicity</button>
+        
+         <div class="slider">
+             <h6 class="sensitive" data-wow-duration="4s">Adjust Sensitivity</h6>
+                <!-- <input type="range" orient="vertical" min="0" max="100" step="1" value="50" id="sensitivityrange" name="slide"/> -->
+                <input type="range" orient="vertical" min="0" max="100" step="1" value="50" id="sensitivityrange" name="slide"/>                
+             <h6><span id="demo"></span>%</h6>   
+         </div>
+         
     </form>
-
    <br>
    <br>
-    <img src="static/images/{{name| default('profile.jpg') }}" alt="{{name}}" width="360" height="240" />
+    <img src="static/images/{{name}}" onerror="this.onerror=null; this.src='static/img/imageonline-co-transparentimage.png';  opacity: 1.0;" alt="{{name}}" width="360" height="240" />
  </div>
+ 
+ <script>
+var slider = document.getElementById("sensitivityrange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+</script>
+
 
 </body>
 </html>

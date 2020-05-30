@@ -3,13 +3,17 @@ import pandas as pd
 import tensorflow as tf
 from transformers import AutoTokenizer
 
+import os
+
 BATCH_SIZE = 1
 MAX_LEN = 192
 MODEL = "jplu/tf-xlm-roberta-base"
 
 def infer():
-
-    model = tf.keras.models.load_model('/home/shri/git/mygit/APOLLO-1/apollo/inference/new_toxic_model')
+    if os.name == 'nt':
+        model = tf.keras.models.load_model('C:\\AKRAM-Local\\github\\Apollo\\apollo\\inference\\new_toxic_model')
+    else:
+        model = tf.keras.models.load_model('/home/shri/git/mygit/APOLLO-1/apollo/inference/new_toxic_model')
     print (model)
     tokenizer = AutoTokenizer.from_pretrained(MODEL)
 
@@ -27,7 +31,7 @@ def regular_encode(texts, tokenizer, maxlen=512):
     return np.array(enc_di["input_ids"])
 
 
-def inference(test_file):
+def inference(test_file, sensitivity):
 
     model, tokenizer = infer()
 
@@ -40,12 +44,14 @@ def inference(test_file):
     test_dataset = tf.data.Dataset.from_tensor_slices(x_test).batch(BATCH_SIZE)
 
     pred = model.predict(test_dataset, verbose=1)
+    
+#    print("prediction score", pred)
 
     toxic_comment, non_toxic_comment = 0, 0
     output = []
 
     for i in pred:
-        if i > 0.6:
+        if i > (sensitivity/100):#0.6:
             toxic_comment += 1
         else:
             non_toxic_comment += 1

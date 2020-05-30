@@ -1,20 +1,35 @@
 import matplotlib.pyplot as plt
-from flask import Flask, request, render_template
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+import numpy
+from flask import Flask, request, render_template, flash, redirect, url_for
+from flask import make_response
 import sys
+import os
 
 sys.path.append('..')
-from apollo.Scraper.config import update_youtube_id
+from apollo.Scraper.config import OUTPUT_PATH, update
+from apollo.Scraper.LinkParser import extract_id
 from apollo.Scraper.youtubeScraper import scrapper
-#from apollo.inference.inference import inference
-
-
-
+from apollo.inference.inference import inference
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
+
+@app.after_request
+def add_header(response):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    #response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, public, max-age=0"
+    #response.headers["Expires"] = 0
+    #response.headers["Pragma"] = "no-cache"
+    #response.headers['Cache-Control'] = 'no-store'
+    return response
 
 def scrape_data(COMMENT_LINK):
-    update_youtube_id(COMMENT_LINK)
+    update(COMMENT_LINK )
 
     output_file_name = scrapper()
     return output_file_name
@@ -22,38 +37,85 @@ def scrape_data(COMMENT_LINK):
 def load_csv(COMMENT_LINK):
 
     output_file_name = scrape_data(COMMENT_LINK)
+    outfile_path = OUTPUT_PATH + '/' + output_file_name
     return outfile_path
 
-def final_infer(COMMENT_LINK):
+def final_infer(COMMENT_LINK, SENSITIVITY):
 
     outfile_path = load_csv(COMMENT_LINK)
-    VALUES = inference(outfile_path)
+    VALUES = inference(outfile_path, SENSITIVITY)
     return (VALUES)
+
+@app.route('/about.html')
+def about():
+    return render_template('about.html')
+    
+@app.route('/index.html')
+def home_index():
+    response = make_response(render_template('index.html'))
+    response = add_header(response)
+    return response
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    #cache.clear()
+    response = make_response(render_template('index.html'))
+    response = add_header(response)
+    return response
 
 @app.route('/predict',methods=['POST'])
 def predict():
     '''
     For rendering results on HTML GUI
     '''
+    #cache.clear()
+    COMMENT_URL = [x for x in request.form.values()]
+    print('This..........',COMMENT_URL)
+    COMMENT_LINK = extract_id(COMMENT_URL[0])
+    SENSITIVITY = int(COMMENT_URL[1])
+    if COMMENT_LINK is None:
+        print("Invalid link or the link is not supported yet.")
+        '''
+        Add a function to show the error message in html page
+        '''
+        flash('Invalid link or the link is not supported yet.')
+        return redirect(url_for('home_index'))
 
-    COMMENT_LINK = request.form.values()
+    else:
+        print (COMMENT_LINK)
+
     global output
-    output = final_infer(COMMENT_LINK)
+    output = final_infer(COMMENT_LINK, SENSITIVITY)    
 
     names = ['Toxic', 'Non-Toxic']
-    values = []
-    values.append(output[0]/output[0] + output[1])
-    values.append(output[1] / output[0] + output[1])
-
-    fig1, ax1 = plt.subplots()
-    ax1.pie(values, labels=names)
-    ax1.axis('equal')
-    plt.savefig('static/images/new_plot.png')
-    return render_template('index.html',name ='new_plot.png')
+    values = output
+    
+    # Bar plot
+    x = numpy.arange(2)
+    fig, ax = plt.subplots()
+    plt.bar(2, values)
+    plt.xticks(x, ('Toxic', 'Non-Toxic'))
+    if os.name =='nt':
+        plt.savefig('static\\images\\new_plot.png', transparent=True)
+    else:
+        plt.savefig('static/images/new_plot.png', transparent=True)
+    
+    # Pie chart, where the slices will be ordered and plotted counter-clockwise:
+    labels = 'Toxic', 'Non-Toxic'
+    sizes = output
+    explode = (0.1, 0.1)  # only "explode" the 1st slice
+    fig2, ax2 = plt.subplots()
+    ax2.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+            colors = 
+                 {"red","blue"}, shadow=True, startangle=90)
+    ax2.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    if os.name =='nt':
+        plt.savefig('static\\images\\new_pie.png', transparent=True)
+    else:
+        plt.savefig('static/images/new_pie.png', transparent=True)
+    response = make_response( render_template('index.html',name ='new_pie.png'))
+    response = add_header(response)
+    return response
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8082, debug=True)
+    app.run(host="0.0.0.0", port=8082, debug=True, threaded=True)
