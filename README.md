@@ -1,23 +1,25 @@
 # APOLLO-1
-Applcation of Learning to Levitate Opportunities - 1
+This project is one of the many APOLLO projects to be launched in future.
 
-# Dev Setup
+## Detect Toxicity in Online YouTube Comments
+Project to check the online toxicity (hate speech, swearing) in YouTube videos comments.
 
-```bash
-# Install system dependencies
-make bootstrap
+## How to run
 
-# If you want to install global dependencies at a user level
-# make bootstrap-user
+1. Clone the repo: ``` git clone https://github.com/kumar-shridhar/APOLLO-1.git``` 
+2. Download saved model from [here](https://drive.google.com/open?id=1fXsd0hyf84AB2QRRnBgsMXeH_tEplHxC)
+3. Unzip the model and save in ```APOLLO-1/apollo/inference``` folder.
+4. ```pip install -r requirements.txt```
+5. Change the number of comments to be scraped in the ```config.py``` file. Default value is set to 50.
+5. ``` python apollo/app.py```
+6. Go to ```localhost:8082``` and provide the YouTube URL. The results will be displayed in the pie chart.
 
-# Setup python environment and install dependencies
-make install
-```
 
-
-## Useful Make targets
-
-- `make format`: This formats code and sorts your imports to make everything flake8 compatible
-- `make test`: This runs all test cases in `<project_root>/tests`
-- `make test-coverage`: This runs all test cases in `<project_root>/tests` and creates a coverage report
-- `make lint`: Runs flake8 and validates code formatting
+### Contact
+Feel free to contact the authors in case of any issues. 
+* Naveed Akram
+* Ritu Yadav
+* Venkatesh Iyer 
+* Sadique Adnan Siddiqui
+* Ashutosh Mishra
+* [Kumar Shridhar](shridhar.stark@gmail.com)
