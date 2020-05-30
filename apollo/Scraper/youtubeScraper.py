@@ -22,7 +22,8 @@ from apollo.Scraper.config import (
     LIMIT,
     OUTPUT_PATH,
     USER_AGENT,
-    YOUTUBE_VIDEO_URL, return_id,
+    YOUTUBE_VIDEO_URL,
+    return_id,
 )
 from apollo.Scraper.download_comments import download_comments
 from apollo.Scraper.helper import read_json, write_csv

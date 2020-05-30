@@ -51,11 +51,11 @@ def search_dict(partial, key):
 
 
 def read_json(filename):
-    return [json.loads(line) for line in open(filename, "r", encoding='utf-8')]
+    return [json.loads(line) for line in open(filename, "r", encoding="utf-8")]
 
 
 def write_csv(data, filename):
-    with open(filename, "w+", encoding='utf-8') as outf:
+    with open(filename, "w+", encoding="utf-8") as outf:
         writer = csv.DictWriter(outf, data[0].keys())
         writer.writeheader()
         for row in data:
