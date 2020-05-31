@@ -8,6 +8,7 @@ import os
 BATCH_SIZE = 1
 MAX_LEN = 192
 MODEL = "jplu/tf-xlm-roberta-base"
+home_path = os.environ['HOME']
 
 
 def infer():
@@ -17,7 +18,7 @@ def infer():
         )
     else:
         model = tf.keras.models.load_model(
-            "/home/shri/git/mygit/APOLLO-1/apollo/inference/new_toxic_model"
+            home_path+"/APOLLO-1/apollo/inference/new_toxic_model"
         )
     print(model)
     tokenizer = AutoTokenizer.from_pretrained(MODEL)
