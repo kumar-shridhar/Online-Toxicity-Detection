@@ -17,7 +17,7 @@ Project to check the online toxicity (hate speech, swearing) in YouTube videos c
 
 ### Contact
 Feel free to contact the authors in case of any issues. 
-* Naveed Akram
+* [Naveed Akram](https://github.com/n-akram)
 * Ritu Yadav
 * Venkatesh Iyer 
 * Sadique Adnan Siddiqui
