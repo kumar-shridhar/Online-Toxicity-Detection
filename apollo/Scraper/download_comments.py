@@ -1,15 +1,18 @@
 import json
 import time
+import sys
+
+sys.path.append("..")
 
 import requests
-from apollo.Scraper.config import (
+from Scraper.config import (
     USER_AGENT,
     YOUTUBE_COMMENTS_AJAX_URL_NEW,
     YOUTUBE_COMMENTS_AJAX_URL_OLD,
     YOUTUBE_VIDEO_URL,
 )
-from apollo.Scraper.extract import extract_comments, extract_reply_cids
-from apollo.Scraper.helper import ajax_request, find_value, search_dict
+from Scraper.extract import extract_comments, extract_reply_cids
+from Scraper.helper import ajax_request, find_value, search_dict
 
 
 def download_comments(youtube_id, sleep=0.1):

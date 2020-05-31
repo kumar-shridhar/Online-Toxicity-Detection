@@ -6,10 +6,11 @@ import sys
 import os
 
 sys.path.append("..")
-from apollo.Scraper.config import OUTPUT_PATH, update
-from apollo.Scraper.LinkParser import extract_id
-from apollo.Scraper.youtubeScraper import scrapper
-from apollo.inference.inference import inference
+
+from Scraper.config import OUTPUT_PATH, update
+from Scraper.LinkParser import extract_id
+from Scraper.youtubeScraper import scrapper
+from inference.inference import inference
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
