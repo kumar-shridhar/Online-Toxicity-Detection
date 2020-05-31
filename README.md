@@ -2,7 +2,7 @@
 This project is one of the many APOLLO projects to be launched in future.
 
 ## Detect Toxicity in Online YouTube Comments
-Project to check the online toxicity (hate speech, swearing) in YouTube videos comments.
+Project to check the online toxicity (hate speech, swearing) in YouTube video comments.
 
 ## How to run
 
