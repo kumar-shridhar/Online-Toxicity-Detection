@@ -78,7 +78,6 @@ def predict():
     """
     # cache.clear()
     COMMENT_URL = [x for x in request.form.values()]
-    print("This..........", COMMENT_URL)
     COMMENT_LINK = extract_id(COMMENT_URL[0])
     SENSITIVITY = int(COMMENT_URL[1])
     if COMMENT_LINK is None:
@@ -98,6 +97,7 @@ def predict():
     names = ["Toxic", "Non-Toxic"]
     values = output
 
+    static_path = './apollo/Frontend/static/images/'
     # Bar plot
     x = numpy.arange(2)
     fig, ax = plt.subplots()
@@ -106,7 +106,7 @@ def predict():
     if os.name == "nt":
         plt.savefig("static\\images\\new_plot.png", transparent=True)
     else:
-        plt.savefig("static/images/new_plot.png", transparent=True)
+        plt.savefig(static_path + "new_plot.png", transparent=True)
 
     # Pie chart, where the slices will be ordered and plotted counter-clockwise:
     labels = "Toxic", "Non-Toxic"
@@ -126,7 +126,7 @@ def predict():
     if os.name == "nt":
         plt.savefig("static\\images\\new_pie.png", transparent=True)
     else:
-        plt.savefig("static/images/new_pie.png", transparent=True)
+        plt.savefig(static_path + "new_pie.png", transparent=True)
     response = make_response(render_template("index.html", name="new_pie.png"))
     response = add_header(response)
     return response
