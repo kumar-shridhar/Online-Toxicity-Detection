@@ -11,7 +11,7 @@ Project to check the online toxicity (hate speech, swearing) in YouTube videos c
 3. Unzip the model and save in ```APOLLO-1/apollo/inference``` folder.
 4. ```pip install -r requirements.txt```
 5. Change the number of comments to be scraped in the ```config.py``` file. Default value is set to 50.
-5. ``` python apollo/app.py```
+5. ``` python apollo/Frontend/app.py```
 6. Go to ```localhost:8082``` and provide the YouTube URL. The results will be displayed in the pie chart.
 
 
