@@ -21,5 +21,5 @@ Feel free to contact the authors in case of any issues.
 * Ritu Yadav
 * [Venkatesh Iyer](https://github.com/venkyiyer)
 * Sadique Adnan Siddiqui
-* [Ashutosh Mishra] (https://github.com/ashutoshmishra1014)
+* [Ashutosh Mishra](https://github.com/ashutoshmishra1014)
 * [Kumar Shridhar](https://kumar-shridhar.github.io/)
