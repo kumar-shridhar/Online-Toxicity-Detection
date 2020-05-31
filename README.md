@@ -7,7 +7,7 @@ Project to check the online toxicity (hate speech, swearing) in YouTube videos c
 ## How to run
 
 1. Clone the repo: ``` git clone https://github.com/kumar-shridhar/APOLLO-1.git``` 
-2. Download saved model from [here](https://drive.google.com/open?id=1fXsd0hyf84AB2QRRnBgsMXeH_tEplHxC)
+2. Download saved model from [here](https://drive.google.com/file/d/1RNd4L_zGVrFF_Cl-6KfoHIInMO-5A0e3/view?usp=sharing)
 3. Unzip the model and save in ```APOLLO-1/apollo/inference``` folder.
 4. ```pip install -r requirements.txt```
 5. Change the number of comments to be scraped in the ```config.py``` file. Default value is set to 50.
@@ -22,4 +22,4 @@ Feel free to contact the authors in case of any issues.
 * Venkatesh Iyer 
 * Sadique Adnan Siddiqui
 * Ashutosh Mishra
-* [Kumar Shridhar](shridhar.stark@gmail.com)
+* [Kumar Shridhar](https://kumar-shridhar.github.io/)
