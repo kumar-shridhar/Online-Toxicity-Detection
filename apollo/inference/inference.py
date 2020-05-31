@@ -22,6 +22,7 @@ def infer():
         #model = tf.keras.models.load_model(
         #    "/home/shri/git/mygit/APOLLO-1/apollo/inference/new_toxic_model"
         #)
+
     print(model)
     tokenizer = AutoTokenizer.from_pretrained(MODEL)
 
