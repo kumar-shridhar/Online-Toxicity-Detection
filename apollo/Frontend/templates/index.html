@@ -222,6 +222,11 @@
 					if (task_finished){
 						if (data.log_message == 'error'){
 							$('#statusmsg').html('URL seems to be invalid');
+							$('#progress').html('');
+							$('#inp_data').prop('disabled', false);
+							$('#predictbtn').prop('disabled', false);
+							$("[name='slide']").prop('disabled', false);
+							$("[name='commentslide']").prop('disabled', false);
 							source.close();
 						}
 					}
@@ -248,7 +253,7 @@
 								$('#progress').html('Result file saved in downloads folder: <b>' + data.result_file+'</b>');
 							}
 							else{
-								$('#progress').html('<span style="color: #f05e23">Prolem saving result file in downloads folder</span>');
+								$('#progress').html('<span style="color: #f05e23">Problem saving result file in downloads folder</span>');
 							}
 						}
 					}

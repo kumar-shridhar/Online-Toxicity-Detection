@@ -141,6 +141,9 @@ def scrapper_v2(youtube_id, sensitivity, limit):
 
         else:
             print(f"The provided YouTube ID : {youtube_id} is invalid! ")
+            LOG_DATA = 'error'
+            COMPLETED = True
+            CHART_DATA = [0, 0]
 
     except Exception as e:
         print("Error:", str(e))
