@@ -16,18 +16,18 @@ import datetime
 
 
 sys.path.append("..")
-from Scraper.config import (
+from apollo.Scraper.config import (
     LIMIT,
     OUTPUT_PATH,
     USER_AGENT,
     YOUTUBE_VIDEO_URL, return_id,
 )
 
-from Scraper.config import OUTPUT_PATH, update
-from Scraper.LinkParser import extract_id
-from Scraper.youtubeScraper import scrapper
-from inference.inference import inference, inference_v2, load_model
-from Scraper.download_comments import download_comments
+from apollo.Scraper.config import OUTPUT_PATH, update
+from apollo.Scraper.LinkParser import extract_id
+from apollo.Scraper.youtubeScraper import scrapper
+from apollo.inference.inference import inference, inference_v2, load_model
+from apollo.Scraper.download_comments import download_comments
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)

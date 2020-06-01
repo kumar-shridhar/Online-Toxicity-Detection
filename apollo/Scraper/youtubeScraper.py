@@ -17,17 +17,16 @@ import shutil
 import sys
 import uuid
 
-sys.path.append("..")
 import requests
-from Scraper.config import (
+from apollo.Scraper.config import (
     LIMIT,
     OUTPUT_PATH,
     USER_AGENT,
     YOUTUBE_VIDEO_URL,
     return_id,
 )
-from Scraper.download_comments import download_comments
-from Scraper.helper import read_json, write_csv
+from apollo.Scraper.download_comments import download_comments
+from apollo.Scraper.helper import read_json, write_csv
 
 
 def scrapper():
