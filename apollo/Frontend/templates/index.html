@@ -113,6 +113,10 @@
 		chart.update();
 	}
 
+	function sleep(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
+		}
+
 	function clear_canvas() {   
 		var oldcanv = document.getElementById('canvas');
 		document.getElementById('canvascontainer').removeChild(oldcanv);
@@ -123,10 +127,12 @@
 		var oldtail = document.getElementById('tail');
 		oldtail.classList.add("logheader");
 		oldtail.innerHTML = '*******Prediction samples log information display*******';
-		// document.getElementById('footer').removeChild(oldtail);
-		// var dv = document.createElement('div');
-		// dv.id = 'tail';
-		// document.getElementById('footer').appendChild(dv);
+
+		pie_config.data.datasets[0].data = [0, 0]
+		sleep(2000);
+		if(typeof pie !== 'undefined'){
+        	pie.update();
+    }
 	}
 
 
