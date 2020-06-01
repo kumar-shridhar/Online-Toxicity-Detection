@@ -96,6 +96,9 @@ def scrapper_v2(youtube_id, sensitivity, limit):
         sensitivity_list = []
 
         if not youtube_id:
+            LOG_DATA = 'error'
+            COMPLETED = True
+            CHART_DATA = [0, 0]
             raise ValueError("you need to specify a Youtube ID")
 
         print("Downloading Youtube comments for video:", youtube_id)
@@ -195,7 +198,7 @@ def predict():
     COMMENT_URL = [x for x in request.form.values()]
     print('This..........', COMMENT_URL)
     if len(COMMENT_URL[0]) == 0:
-        return jsonify(msg='url missing', status='error')
+        return jsonify(msg='URL missing', status='error')
     
     COMMENT_LINK = extract_id(COMMENT_URL[0])
     SENSITIVITY = float(COMMENT_URL[1])
@@ -209,7 +212,7 @@ def predict():
 
     else:
         print (COMMENT_LINK)
-
+    
     scrapper_v2(COMMENT_LINK, SENSITIVITY, LIMIT)
     
     return jsonify(msg='scraping successfully', status='success')

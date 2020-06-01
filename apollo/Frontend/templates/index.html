@@ -105,17 +105,34 @@
 			},
 		};
 
-	function removeData(chart) {
-		// chart.data.labels.pop();
-		chart.data.datasets.forEach((dataset) => {
-			dataset.data.pop();
-		});
-		chart.update();
-	}
+		function isUrlValid(url) {
+			return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
+		}
+
+		function urlExists(url){
+			$.ajax({
+				type: 'HEAD',
+				url: url,
+				success: function(){
+					return true;
+				},
+				error: function() {
+					return false;
+				}
+			});
+		}
+
+		function removeData(chart) {
+			// chart.data.labels.pop();
+			chart.data.datasets.forEach((dataset) => {
+				dataset.data.pop();
+			});
+			chart.update();
+		}
 
 	function sleep(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));
-		}
+	}
 
 	function clear_canvas() {   
 		var oldcanv = document.getElementById('canvas');
@@ -180,6 +197,14 @@
 					document.getElementById('tail').removeChild(document.getElementById('tail').firstChild);
 				}
 				document.getElementById('tail').innerHTML = '*******Prediction samples log information display*******';
+
+				sleep(10000);
+
+				if (!isUrlValid($("#inp_data").val())){
+					$('#statusmsg').html('Invalid/missing URL');
+					return;
+				}
+
 				$("#predictbtn").click();
 				$('#inp_data').prop('disabled', true);
 				$('#predictbtn').prop('disabled', true);
@@ -193,7 +218,13 @@
 				source.onmessage = function (event) {
 					const data = JSON.parse(event.data);
 					task_finished = data.processed;
-		
+					
+					if (task_finished){
+						if (data.log_message == 'error'){
+							$('#statusmsg').html('URL seems to be invalid');
+							source.close();
+						}
+					}
 					if (data.log_message.length>0){
 						$("<div style='text-align: left;'/>").text(new Date() + '\n' + data.log_message).appendTo("#tail");
 					}
