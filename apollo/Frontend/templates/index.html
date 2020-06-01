@@ -29,7 +29,7 @@
 					<ul class="nav-menu">
 						<li class="menu-active"><a href="index.html">Home</a></li>
 						<li><a target="_blank" href="https://github.com/kumar-shridhar/APOLLO-1/">Github</a></li>
-						<li><a target="_blank" href="https://medium.com/@shridhar743/apollo-1-c67708b8895/">Medium</a></li>
+						<li><a target="_blank" href="https://medium.com/@er.ritu92/5bae8c625b25/">Medium</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -37,13 +37,6 @@
 	</header>
 </div>
 <div style="height:20%; width:100%; text-align: center;">
-	<!-- <h3><span style="color: #f05e23">A</span>
-		<span style="color: #f05e23">P</span>
-		<span style="color: #f05e23">O</span>
-		<span style="color: #f05e23">L</span>
-		<span style="color: #f05e23">L</span>
-		<span style="color: #f05e23">O</span>
-	</h3> -->
 	<div id="logo">
 		<img src="static/img/LogoMakr_2DoISf.png" alt="Project APOLLO LOGO" title="Project APOLLO Logo"/>
 	</div>
@@ -172,17 +165,17 @@
 
 
 		$('#canvas').hide();
-		// $('#tail').hide();
 		$("#predictbtn").mouseup(function() {
+			// clear_canvas();
 			task_finished = false
 			$('#canvas').hide();
-			// $('#tail').hide();
 			if ($("#inp_data").val()){
+				document.getElementById('tail').innerHTML = '*******Prediction samples log information display*******';
 				$("#predictbtn").click();
+				$('#inp_data').prop('disabled', true);
 				$('#predictbtn').prop('disabled', true);
 				$("[name='slide']").prop('disabled', true);
 				$("[name='commentslide']").prop('disabled', true);
-				// clear_canvas();
 				$('#statusmsg').html('Preprocessing in progress');
 				$('#progress').html('<img src="static/img/loading.gif" />');
 				
@@ -199,7 +192,6 @@
 
 					if (data.toxic_data[0]+data.toxic_data[1]>0.0) {
 						$('#canvas').show();
-						// $('#tail').show();
 			
 						$('#statusmsg').html('Fetching scraped data');
 						pie_config.data.datasets[0].data = data.toxic_data
@@ -208,6 +200,7 @@
 							source.close();
 							$('#statusmsg').html('Update Finished');
 							$('#progress').html('');
+							$('#inp_data').prop('disabled', false);
 							$('#predictbtn').prop('disabled', false);
 							$("[name='slide']").prop('disabled', false);
 							$("[name='commentslide']").prop('disabled', false);

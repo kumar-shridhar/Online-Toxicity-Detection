@@ -15,7 +15,7 @@ import datetime
 
 
 
-sys.path.append("..")
+sys.path.append(os.path.abspath("./"))
 from apollo.Scraper.config import (
     LIMIT,
     OUTPUT_PATH,
@@ -131,7 +131,7 @@ def scrapper_v2(youtube_id, sensitivity, limit):
                     df['id'], df['comment'], df['score'], df['sensitivity'] = count_list, comment_list, score_list, sensitivity_list
                     filename = '{}_{}_{}.csv'.format(youtube_id, sensitivity, limit)
                     LOG_RESULT_DATA = filename
-                    filepath = os.path.abspath(os.path.join('../../', 'downloads', filename))
+                    filepath = os.path.abspath(os.path.join('./', 'downloads', filename))
                     df.to_csv(filepath, encoding='utf-8')
                     break
             print("\nDone!")
