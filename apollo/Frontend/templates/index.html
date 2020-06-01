@@ -1,83 +1,230 @@
 <!DOCTYPE html>
 <html >
-<!--From https://codepen.io/frytyler/pen/EGdtg-->
+	<!--From https://codepen.io/frytyler/pen/EGdtg-->
 <head>
-  <meta charset="UTF-8">
-  <title>Toxicity</title>
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
+	<meta charset="UTF-8">
+	<title>Toxicity</title>
+	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" rel="stylesheet">
+	<!--suppress JSUnresolvedLibraryURL -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<!--suppress JSUnresolvedLibraryURL -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<!--suppress JSUnresolvedLibraryURL -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 </head>
 
 <body>
+<div style="height:5%; width:100%; text-align: right; ">
 	<header id="header">
 		<div class="container">
-			<div class="row align-items-center justify-content-between d-flex">
-				<div id="logo">
-					<img src="static/img/LogoMakr_2DoISf.png" alt="" title="" width="200" height="100" style="float:left"/>
-				</div>
+			<div class="">
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
 						<li class="menu-active"><a href="index.html">Home</a></li>
-						<li><a href="about.html">About</a></li>
-						<li><a href="https://github.com/">Github</a></li>
-						<li><a href="https://medium.com/">Medium</a></li>
-						<li><a href="about.html">Contact</a></li>
+						<li><a target="_blank" href="https://github.com/kumar-shridhar/APOLLO-1/">Github</a></li>
+						<li><a target="_blank" href="https://medium.com/@shridhar743/apollo-1-c67708b8895/">Medium</a></li>
 					</ul>
-				</nav><!-- #nav-menu-container -->
+				</nav>
 			</div>
 		</div>
 	</header>
+</div>
+<div style="height:20%; width:100%; text-align: center;">
+	<!-- <h3><span style="color: #f05e23">A</span>
+		<span style="color: #f05e23">P</span>
+		<span style="color: #f05e23">O</span>
+		<span style="color: #f05e23">L</span>
+		<span style="color: #f05e23">L</span>
+		<span style="color: #f05e23">O</span>
+	</h3> -->
+	<div id="logo">
+		<img src="static/img/LogoMakr_2DoISf.png" alt="Project APOLLO LOGO" title="Project APOLLO Logo"/>
+	</div>
+</div>
+<div id="battlebox">
+<span class="leftRapper">
+	<div class="login" style="text-align: center;">
+		 <!-- Main Input For Receiving Query to our ML -->
+		<!-- <form id="target" action="{{ url_for('predict')}}" method="post"> -->
+			<form id="target" action="" method="">
+			<input id="inp_data" type="text" name="experience" placeholder="Search Youtube ID or type a URL" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Youtube ID or type a URL'" required="required" />
+			
+			<div class="slider">
+			   <h6 class="sensitive" data-wow-duration="4s">Adjust Sensitivity</h6>
+				   <input type="range" style="width: 100%;" orient="horizontal" min="0" max="1" step="0.1" value="0.5" id="sensitivityrange" name="slide"/>
+				   <h6><span id="sensitivityvalue"></span></h6>
+				<h6 class="sensitive" data-wow-duration="4s">Number of comments</h6>
+				   <input type="range" style="width: 100%;" orient="horizontal" min="10" max="200" step="10" value="50" id="numcommentsrange" name="commentslide"/>
+				   <h6><span id="commentscount"></span></h6>
+			</div>
+			<!-- <button id="predictbtn" type="submit" style="margin-top: 30%;" class="btn btn-primary btn-block btn-large" >Predict</button> -->
+			<button id="predictbtn" type="button" style="margin-top: 30%;" class="btn btn-primary btn-block btn-large" >Predict</button>
+		</form>
+	   <br>
+	   <br>
+
+	
+	 </div>
+</span>
+<span class="rightRapper" id='canvascontainer'>
+	<div id="statusmsg" style="font-weight: 700; text-align: center;"></div>
+	<div id="progress" style="text-align: center;"></div>
+	<canvas id="canvas"></canvas>
+	<!-- <div id="tail"></div> -->
+</span>
+</div>
+<div id="footer">
+	<div id="tail" class="logheader">*******Prediction samples information display*******</div>
+</div>
 
 
- <div class="login">
-	<h3>Enter your Youtube URL</h3>
-    <script type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 2000); </script>
-    {% block content %}
-    <div class="container" id="successMessage">
-        {% for message in get_flashed_messages() %}
-        <div class="alert alert-warning">
-            <!-- <button type="button" class="close" data-dismiss="alert">&times;</button> -->
-            <!-- {{ message }} -->
-            <p style="color:red">{{ message }}</p>
-        </div>
-        {% endfor %}
+<script>
+	var slider = document.getElementById("sensitivityrange");
+	var commentsslider = document.getElementById("numcommentsrange");
+	var output = document.getElementById("sensitivityvalue");
+	var outputcomments = document.getElementById("commentscount");
+	output.innerHTML = slider.value;
+	outputcomments.innerHTML = commentsslider.value;
+	
+	slider.oninput = function() {
+		output.innerHTML = this.value;
+	}
+	commentsslider.oninput = function() {
+		outputcomments.innerHTML = this.value;
+	}
+	var task_finished = false;
+	var pie;
+	const pie_config = {
+			type: 'doughnut',
+			data: {
+				labels: ['Toxic', 'Non Toxic'],
+				datasets: [{
+					backgroundColor: ['#f26565', '#99db5c'],
+					data: [0, 0],
+				}],
+			},
+		};
 
-        {% block page_content %}{% endblock %}
-    </div>
-    {% endblock %}
+	function removeData(chart) {
+		// chart.data.labels.pop();
+		chart.data.datasets.forEach((dataset) => {
+			dataset.data.pop();
+		});
+		chart.update();
+	}
 
-     <!-- Main Input For Receiving Query to our ML -->
-    <form action="{{ url_for('predict')}}"method="post">
-    	<input type="text" name="experience" placeholder="Youtube URL" required="required" />
-        <button type="submit" class="btn btn-primary btn-block btn-large">Find Toxicity</button>
-        
-         <div class="slider">
-             <h6 class="sensitive" data-wow-duration="4s">Adjust Sensitivity</h6>
-                <!-- <input type="range" orient="vertical" min="0" max="100" step="1" value="50" id="sensitivityrange" name="slide"/> -->
-                <input type="range" orient="vertical" min="0" max="100" step="1" value="50" id="sensitivityrange" name="slide"/>                
-             <h6><span id="demo"></span>%</h6>   
-         </div>
-         
-    </form>
-   <br>
-   <br>
-    <img src="static/images/{{name}}" onerror="this.onerror=null; this.src='static/img/imageonline-co-transparentimage.png';  opacity: 1.0;" alt="{{name}}" width="360" height="240" />
- </div>
- 
- <script>
-var slider = document.getElementById("sensitivityrange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value;
+	function clear_canvas() {   
+		var oldcanv = document.getElementById('canvas');
+		document.getElementById('canvascontainer').removeChild(oldcanv);
+		var canv = document.createElement('canvas');
+		canv.id = 'canvas';
+		document.getElementById('canvascontainer').appendChild(canv);
 
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
+		var oldtail = document.getElementById('tail');
+		oldtail.classList.add("logheader");
+		oldtail.innerHTML = '*******Prediction samples log information display*******';
+		// document.getElementById('footer').removeChild(oldtail);
+		// var dv = document.createElement('div');
+		// dv.id = 'tail';
+		// document.getElementById('footer').appendChild(dv);
+	}
+
+
+	function tailScroll() {
+		var height = $("#tail").get(0).scrollHeight;
+		$("#tail").animate({
+			scrollTop: height
+		}, 500);
+	}
+
+    $(document).ready(function () {
+
+		clear_canvas()
+		$('#target').trigger("reset");
+		$("#sensitivityvalue").html('0.5');
+		$("#commentscount").html('50');
+
+		const context = document.getElementById('canvas').getContext('2d');
+		const piechart = new Chart(context, pie_config);
+		pie = piechart
+
+		$("#predictbtn").click(function() {
+			$.ajax({
+				url:"/predict",
+				type: "post",
+				dataType: 'json',
+				data: {url:$('#inp_data').val(), sensitivity: $('#sensitivityrange').val(), num_comments: $('#numcommentsrange').val()},
+				success:function(result){
+					// console.log('HELLO=>'+result.abc);
+					if (result.status == 'error'){
+						$('#statusmsg').html('<span style="color: #f05e23">'+result.msg+'</span>');
+					}
+				}
+			});
+		});
+
+
+		$('#canvas').hide();
+		// $('#tail').hide();
+		$("#predictbtn").mouseup(function() {
+			task_finished = false
+			$('#canvas').hide();
+			// $('#tail').hide();
+			if ($("#inp_data").val()){
+				$("#predictbtn").click();
+				$('#predictbtn').prop('disabled', true);
+				$("[name='slide']").prop('disabled', true);
+				$("[name='commentslide']").prop('disabled', true);
+				// clear_canvas();
+				$('#statusmsg').html('Preprocessing in progress');
+				$('#progress').html('<img src="static/img/loading.gif" />');
+				
+				const source = new EventSource("/chart-data");
+		
+				source.onmessage = function (event) {
+					const data = JSON.parse(event.data);
+					task_finished = data.processed;
+		
+					if (data.log_message.length>0){
+						$("<div style='text-align: left;'/>").text(new Date() + '\n' + data.log_message).appendTo("#tail");
+					}
+					tailScroll();
+
+					if (data.toxic_data[0]+data.toxic_data[1]>0.0) {
+						$('#canvas').show();
+						// $('#tail').show();
+			
+						$('#statusmsg').html('Fetching scraped data');
+						pie_config.data.datasets[0].data = data.toxic_data
+						piechart.update();
+						if (task_finished){
+							source.close();
+							$('#statusmsg').html('Update Finished');
+							$('#progress').html('');
+							$('#predictbtn').prop('disabled', false);
+							$("[name='slide']").prop('disabled', false);
+							$("[name='commentslide']").prop('disabled', false);
+							if (data.result_file){
+								$('#progress').html('Result file saved in downloads folder: <b>' + data.result_file+'</b>');
+							}
+							else{
+								$('#progress').html('<span style="color: #f05e23">Prolem saving result file in downloads folder</span>');
+							}
+						}
+					}
+				}
+
+			}
+		});
+	});
 </script>
-
 
 </body>
 </html>

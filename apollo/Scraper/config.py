@@ -30,7 +30,7 @@ OUTPUT_PATH = ""
 
 # Development time update
 if os.name == "nt":
-    OUTPUT_PATH = "C:\\AKRAM-Local\\github\\Apollo\\Frontend\\working"
+    OUTPUT_PATH = "C:\\Users\\mha\\Documents\\checkouts\\APOLLO-1\\apollo\\Frontend\\working"
 else:
     OUTPUT_PATH = os.environ["HOME"]
 
