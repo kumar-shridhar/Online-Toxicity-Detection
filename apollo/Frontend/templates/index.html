@@ -170,6 +170,9 @@
 			task_finished = false
 			$('#canvas').hide();
 			if ($("#inp_data").val()){
+				while (document.getElementById('tail').firstChild) {
+					document.getElementById('tail').removeChild(document.getElementById('tail').firstChild);
+				}
 				document.getElementById('tail').innerHTML = '*******Prediction samples log information display*******';
 				$("#predictbtn").click();
 				$('#inp_data').prop('disabled', true);
