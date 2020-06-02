@@ -38,6 +38,8 @@ LIMIT = 50
 LOG_RESULT_DATA = None
 LOG_DATA = ''
 
+COMMENTS_STORE = []
+
 @app.after_request
 def add_header(response):
     """
@@ -81,12 +83,14 @@ def scrapper_v2(youtube_id, sensitivity, limit):
         global COMPLETED
         global LOG_RESULT_DATA
         global LOG_DATA
+        global COMMENTS_STORE
         
 
         CHART_DATA = [0, 0]
         COMPLETED = False
         LOG_RESULT_DATA = None
         LOG_DATA = ''
+        COMMENTS_STORE = []
 
         df = pd.DataFrame(columns=['id', 'comment', 'score', 'sensitivity'])
         toxic_count, nontoxic_count = 0 , 0
@@ -99,6 +103,7 @@ def scrapper_v2(youtube_id, sensitivity, limit):
             LOG_DATA = 'error'
             COMPLETED = True
             CHART_DATA = [0, 0]
+            COMMENTS_STORE = []
             raise ValueError("you need to specify a Youtube ID")
 
         print("Downloading Youtube comments for video:", youtube_id)
@@ -117,7 +122,9 @@ def scrapper_v2(youtube_id, sensitivity, limit):
                 else:
                     nontoxic_count +=1
                 CHART_DATA = [(toxic_count / (toxic_count + nontoxic_count)) * 100, (nontoxic_count / (toxic_count + nontoxic_count)) * 100]
-                LOG_DATA = ' '.join(['['+str(count + 1)+']', str(comment_content), 'score: ' + str(score)])
+                LOG_DATA = ' '.join(['[' + str(count + 1) + ']', str(comment_content), 'score: ' + str(score)])
+
+                COMMENTS_STORE.append([comment['content'], comment['time'], comment['author'], comment['votes'], comment['photo'], str(score)])
 
                 count_list.append(count)
                 comment_list.append(comment_content)
@@ -128,7 +135,7 @@ def scrapper_v2(youtube_id, sensitivity, limit):
                 count += 1
                 sys.stdout.write("Downloaded %d comment(s)\r" % count)
                 sys.stdout.flush()
-                # print(count, CHART_DATA)
+                
                 if limit and count >= limit:
                     COMPLETED = True
                     df['id'], df['comment'], df['score'], df['sensitivity'] = count_list, comment_list, score_list, sensitivity_list
@@ -144,6 +151,7 @@ def scrapper_v2(youtube_id, sensitivity, limit):
             LOG_DATA = 'error'
             COMPLETED = True
             CHART_DATA = [0, 0]
+            COMMENTS_STORE = []
 
     except Exception as e:
         print("Error:", str(e))
@@ -162,6 +170,17 @@ def chart_data():
             time.sleep(1)
 
     return Response(send_processed_data(), mimetype='text/event-stream')
+
+
+@app.route('/log-data')
+def log_data():
+    def send_log_data():
+        while len(COMMENTS_STORE)>0:
+            json_data = json.dumps({'log_data': COMMENTS_STORE.pop(0)})
+            yield f"data:{json_data}\n\n"
+            time.sleep(1)
+
+    return Response(send_log_data(), mimetype='text/event-stream')
 
 
 @app.route("/about.html")

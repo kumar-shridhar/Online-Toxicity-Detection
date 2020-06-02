@@ -243,6 +243,9 @@ h3 span{
   line-height: 2.0;
 }
 
+#predictbtn{
+  margin-top: 30%;
+}
 
 #battleBox {  
   width: 100%; /* increasing width from 210 to 216 because your border takes 6 extra px*/
@@ -299,6 +302,101 @@ a:active {
 
 .logheader{
   font-weight: 900;
-  text-align: center;
+  text-align: left;
   color: #726c6a;
+}
+
+.wrapper {
+  font-family: "Open Sans Semibold", "Segoe UI";
+  font-size: 13px;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.first {
+  width: 40;
+  height: 40;
+  float:left;
+}
+.second {
+  overflow: hidden;
+  padding-left: 12px;
+}
+.first img{
+  border-radius: 50%;
+}
+.author_header{
+  overflow: hidden;
+  font-weight: 600;
+}
+.author_name{
+  float:left;
+  padding-right: 1%;
+}
+.author_time_posted{
+  float:left;
+  padding-right: 1%;
+}
+.toxic_score{
+  float:left;
+  font-weight: bold;
+  color: red;
+}
+.author_comment{
+  padding-top: 0.5%;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.box .row.header {
+  flex: 0 1 auto;
+  /* The above is shorthand for:
+  flex-grow: 0,
+  flex-shrink: 1,
+  flex-basis: auto
+  */
+}
+
+.box .row.content {
+  flex: 1 1 auto;
+}
+
+.box .row.foot {
+  flex: 0 1 500px;
+}
+
+
+@media only screen and (max-device-height: 1024px) {
+  #inp_data{
+    margin-top: 150px;
+    margin-bottom: 75px;
+  }
+
+  .slider sensitive {
+    margin-top: 75px;
+    margin-bottom: 75px;
+  }
+
+  #sensitivityvalue commentscount{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  #predictbtn{
+    margin-top: 60%;
+  }
+
+  .leftRapper{
+    width: 65%;
+  }
 }
