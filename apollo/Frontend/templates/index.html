@@ -143,6 +143,8 @@
 
 		var oldtail = document.getElementById('tail');
 		oldtail.classList.add("logheader");
+
+
 		oldtail.innerHTML = '*******Prediction samples log information display*******';
 
 		pie_config.data.datasets[0].data = [0, 0]
@@ -197,8 +199,6 @@
 					document.getElementById('tail').removeChild(document.getElementById('tail').firstChild);
 				}
 				document.getElementById('tail').innerHTML = '*******Prediction samples log information display*******';
-
-				sleep(10000);
 
 				if (!isUrlValid($("#inp_data").val())){
 					$('#statusmsg').html('Invalid/missing URL');

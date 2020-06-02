@@ -15,16 +15,16 @@ LOADED_MODEL = None
 TOKENIZER = None
 
 def infer():
-    if os.name == "nt":
-        model = tf.keras.models.load_model(
-            "C:\\Users\\mha\\Documents\\checkouts\\APOLLO-1\\apollo\\inference\\new_toxic_model"
-        )
-    else:
-        model = tf.keras.models.load_model(MODEL_PATH )
-        #model = tf.keras.models.load_model(
-        #    "/home/shri/git/mygit/APOLLO-1/apollo/inference/new_toxic_model"
-        #)
-
+    # if os.name == "nt":
+    #     model = tf.keras.models.load_model(
+    #         "C:\\Users\\mha\\Documents\\checkouts\\APOLLO-1\\apollo\\inference\\new_toxic_model"
+    #     )
+    # else:
+    #     model = tf.keras.models.load_model(MODEL_PATH )
+    #     #model = tf.keras.models.load_model(
+    #     #    "/home/shri/git/mygit/APOLLO-1/apollo/inference/new_toxic_model"
+    #     #)
+    model = tf.keras.models.load_model(MODEL_PATH )
     print(model)
     tokenizer = AutoTokenizer.from_pretrained(MODEL)
 
