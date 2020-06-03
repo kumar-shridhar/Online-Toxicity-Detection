@@ -1,19 +1,25 @@
-# APOLLO-1
-This project is one of the many APOLLO projects to be launched in future.
+[![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/release/python-376/)
+[![TensorFlow 2.1](https://img.shields.io/badge/tensorflow-2.1.1-blue.svg)](https://github.com/tensorflow/tensorflow/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/kumar-shridhar/APOLLO-1/blob/master/LICENSE)
 
-## Detect Toxicity in Online YouTube Comments
-Project to check the online toxicity (hate speech, swearing) in YouTube video comments.
+![.](apollo/Frontend/static/img/LogoMakr_2DoISf.png)                                                                   
+
+# APOLLO-1: Online Toxicity Classification
+
+**APOLLO-1** is one of the many APOLLO projects to be launched in future. This project is aimed at developing an application that detects **toxicity in an online conversation**.
 
 ## How to run
 
 1. Clone the repo: ``` git clone https://github.com/kumar-shridhar/APOLLO-1.git``` 
-2. Set python export path: ```export PYTHONPATH="${PYTHONPATH}:/path/to/your/cloned_repo/"```
-2. Download saved model from [here](https://drive.google.com/file/d/1RNd4L_zGVrFF_Cl-6KfoHIInMO-5A0e3/view?usp=sharing)
-3. Unzip the model and save in ```APOLLO-1/apollo/inference``` folder.
-4. Install all the requirements by command: ```pip install -r requirements.txt```
-5. Change the number of comments to be scraped in the ```config.py``` file at ```APOLLO-1/apollo/Scraper/```. Default value is set to 50.
-5. Run command: ``` python apollo/Frontend/app.py```
-6. Go to ```localhost:8082``` and provide the YouTube URL. The results will be displayed in the pie chart.
+2. Make sure you have anaconda installed. If not, check [here](https://docs.anaconda.com/anaconda/install/). 
+3. Install all the requirements using conda yaml: ```conda env create -f environment_{os}.yml``` where ```{os}``` can be ```Windows``` or ```Linux```.
+4. Download saved model from [here](https://drive.google.com/file/d/1RNd4L_zGVrFF_Cl-6KfoHIInMO-5A0e3/view?usp=sharing)
+5. Unzip the model and save in ```APOLLO-1/apollo/inference``` folder.
+6. Run command: 
+    * ``` cd APOLLO-1```
+    * ``` python apollo/Frontend/app.py```
+7. Go to ```localhost:8082``` and provide the YouTube URL, and set the ```sensitivity``` and ```number of comments```. The results will be displayed in a chart form. 
+8. A csv of the final results will be saved in the ```APOLLO-1/downloads``` folder.
 
 
 ### Contact
