@@ -17,7 +17,7 @@ html { width: 100%; height:100%; overflow:visible; }
 body {
 	width: 100%;
 	height:100%;
-	font-family: 'Open Sans', sans-serif;
+	/* font-family: 'Open Sans', sans-serif; */
 	background: #eff0f1;
 	color: #fff;
 	font-size: 18px;
@@ -291,20 +291,16 @@ a:active {
   height: 200px;
   width: 100%;
   overflow-y: auto;
-  font-family: 'Courier New', Courier, monospace;
+  /* font-family: 'Courier New', Courier, monospace;
   font-size: smaller;
-  font-weight: bold;
+  font-weight: bold; */
   position: relative;
   bottom: 0;
   float: right;
+  margin-left: inherit;
   /* visibility: hidden; */
 }
 
-.logheader{
-  font-weight: 900;
-  text-align: left;
-  color: #726c6a;
-}
 
 .wrapper {
   font-family: "Open Sans Semibold", "Segoe UI";
@@ -312,6 +308,8 @@ a:active {
   width: 100%;
   overflow: hidden;
   margin-top: 8px;
+  margin-left: 5px;
+  box-sizing: border-box;
 }
 .first {
   width: 40;
@@ -340,16 +338,19 @@ a:active {
 .toxic_score{
   float:left;
   font-weight: bold;
-  color: red;
 }
 .author_comment{
-  padding-top: 0.5%;
+  padding-top: 0;
+  font-family: "Open Sans Semibold", "Segoe UI";
+  font-size: 13px;
+  color: black;
 }
 
 html,
 body {
   height: 100%;
   margin: 0;
+  overflow: hidden;
 }
 
 .box {

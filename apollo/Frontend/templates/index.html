@@ -55,7 +55,7 @@
 						<input type="range" style="width: 100%;" orient="horizontal" min="0" max="1" step="0.1" value="0.5" id="sensitivityrange" name="slide"/>
 						<h6><span id="sensitivityvalue"></span></h6>
 						<h6 class="sensitive" data-wow-duration="4s">Number of comments</h6>
-						<input type="range" style="width: 100%;" orient="horizontal" min="10" max="200" step="10" value="50" id="numcommentsrange" name="commentslide"/>
+						<input type="range" style="width: 100%;" orient="horizontal" min="2" max="50" step="10" value="10" id="numcommentsrange" name="commentslide"/>
 						<h6><span id="commentscount"></span></h6>
 					</div>
 					<!-- <button id="predictbtn" type="submit" style="margin-top: 30%;" class="btn btn-primary btn-block btn-large" >Predict</button> -->
@@ -75,7 +75,7 @@
 		</span>
 	</div>
 
-	<div id="tail" class="logheader row foot" >*******Prediction samples information display*******</div>
+	<div id="tail" class="row foot" >*******Prediction samples information display*******</div>
 </div>
 
 
@@ -190,8 +190,14 @@
 		author_time_posted.className = 'author_time_posted';
 
 		toxic_score = document.createElement('span');
-		toxic_score.textContent='[' + score + ']';
+		toxic_score.textContent= score.slice(0, 5);
 		toxic_score.className = 'toxic_score';
+		if (score>document.getElementById('sensitivityrange').value){
+			toxic_score.style.color = '#f26565';
+		}
+		else{
+			toxic_score.style.color = '#99db5c';
+		}
 
 		author_comment = document.createElement('div');
 		author_comment.innerHTML=comment;
