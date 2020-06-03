@@ -15,10 +15,8 @@ from apollo.Scraper.config import (
     YOUTUBE_VIDEO_URL,
 )
 
-from apollo.Scraper.config import OUTPUT_PATH, update
 from apollo.Scraper.LinkParser import extract_id
-from apollo.Scraper.youtubeScraper import scrapper
-from apollo.inference.inference import inference, inference_v2, load_model
+from apollo.inference.inference import inference_v2, load_model
 from apollo.Scraper.download_comments import download_comments
 
 app = Flask(__name__)
@@ -86,7 +84,7 @@ def scrapper_v2(youtube_id, sensitivity, limit):
         if "og:title" in html:
             for comment in download_comments(youtube_id):
                 comment_content = comment['content']
-                score = inference_v2(comment_content, sensitivity)
+                score = inference_v2(comment_content)
                 if score > (sensitivity):
                     toxic_count += 1
                 else:
@@ -103,7 +101,7 @@ def scrapper_v2(youtube_id, sensitivity, limit):
                 count += 1
                 sys.stdout.write("Downloaded %d comment(s)\r" % count)
                 sys.stdout.flush()
-                # print(count, CHART_DATA)
+
                 if limit and count >= limit:
                     COMPLETED = True
                     df['id'], df['comment'], df['score'], df['sensitivity'] = count_list, comment_list, score_list, sensitivity_list
@@ -157,7 +155,7 @@ def home():
     LOAD_MODEL_THREAD = threading.Thread(target=load_model, args=())
     LOAD_MODEL_THREAD.daemon = True
     LOAD_MODEL_THREAD.start()
-    # cache.clear()
+
     response = make_response(render_template("index.html"))
     response = add_header(response)
     return response
