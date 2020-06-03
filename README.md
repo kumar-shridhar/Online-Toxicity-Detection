@@ -8,6 +8,8 @@
 
 **APOLLO-1** is one of the many APOLLO projects to be launched in future. This project is aimed at developing an application that detects **toxicity in an online conversation**.
 
+![.](apollo/Frontend/static/img/Apollo.gif) 
+
 ## How to run
 
 1. Clone the repo: ``` git clone https://github.com/kumar-shridhar/APOLLO-1.git``` 
