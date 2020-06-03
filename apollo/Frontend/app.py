@@ -1,6 +1,4 @@
-import matplotlib.pyplot as plt
-import numpy
-from flask import Flask, request, render_template, flash, redirect, url_for, Response
+from flask import Flask, request, render_template, Response
 from flask import make_response, jsonify
 import sys
 import os
@@ -10,17 +8,11 @@ import json
 import threading
 import time
 import pandas as pd
-import tempfile
-import datetime
-
-
 
 sys.path.append(os.path.abspath("./"))
 from apollo.Scraper.config import (
-    LIMIT,
-    OUTPUT_PATH,
     USER_AGENT,
-    YOUTUBE_VIDEO_URL, return_id,
+    YOUTUBE_VIDEO_URL,
 )
 
 from apollo.Scraper.config import OUTPUT_PATH, update
@@ -34,7 +26,6 @@ app.secret_key = os.urandom(24)
 LOAD_MODEL_THREAD = None
 CHART_DATA = [0, 0]
 COMPLETED = False
-LIMIT = 50
 LOG_RESULT_DATA = None
 LOG_DATA = ''
 
@@ -46,34 +37,18 @@ def add_header(response):
     """
     response.headers["X-UA-Compatible"] = "IE=Edge,chrome=1"
     response.headers["Cache-Control"] = "public, max-age=0"
-    # response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, public, max-age=0"
-    # response.headers["Expires"] = 0
-    # response.headers["Pragma"] = "no-cache"
-    # response.headers['Cache-Control'] = 'no-store'
     return response
 
 
-def scrape_data(COMMENT_LINK):
-    update(COMMENT_LINK)
-
-    output_file_name = scrapper()
-    return output_file_name
-
-
-def load_csv(COMMENT_LINK):
-
-    output_file_name = scrape_data(COMMENT_LINK)
-    outfile_path = OUTPUT_PATH + "/" + output_file_name
-    return outfile_path
-
-
-def final_infer(COMMENT_LINK, SENSITIVITY):
-
-    outfile_path = load_csv(COMMENT_LINK)
-    VALUES = inference(outfile_path, SENSITIVITY)
-    return VALUES
-
 def scrapper_v2(youtube_id, sensitivity, limit):
+    '''
+
+    Code modified from : https://github.com/egbertbouman/youtube-comment-downloader
+    :param youtube_id: ID of Youtube Video Link
+    :param sensitivity: Sensitivity tolerance level (To be used as threshold during inference)
+    :param limit: Number of comments to be scraped
+    :return: CSV file of output comments
+    '''
     try:
         # if LOAD_MODEL_THREAD is not None:
         LOAD_MODEL_THREAD.join()
@@ -81,7 +56,7 @@ def scrapper_v2(youtube_id, sensitivity, limit):
         global COMPLETED
         global LOG_RESULT_DATA
         global LOG_DATA
-        
+
 
         CHART_DATA = [0, 0]
         COMPLETED = False
@@ -199,7 +174,6 @@ def predict():
 
     COMPLETED = False
     COMMENT_URL = [x for x in request.form.values()]
-    print('This..........', COMMENT_URL)
     if len(COMMENT_URL[0]) == 0:
         return jsonify(msg='URL missing', status='error')
     
