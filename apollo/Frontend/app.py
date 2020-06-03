@@ -1,6 +1,4 @@
-import matplotlib.pyplot as plt
-import numpy
-from flask import Flask, request, render_template, flash, redirect, url_for, Response
+from flask import Flask, request, render_template, Response
 from flask import make_response, jsonify
 import sys
 import os
@@ -12,32 +10,26 @@ import time
 import pandas as pd
 import tempfile
 import datetime
-from collections import defaultdict 
+from collections import defaultdict
+import namegenerator
 
 
 
 sys.path.append(os.path.abspath("./"))
 from apollo.Scraper.config import (
-    LIMIT,
-    OUTPUT_PATH,
     USER_AGENT,
-    YOUTUBE_VIDEO_URL, return_id,
+    YOUTUBE_VIDEO_URL,
 )
 
-from apollo.Scraper.config import OUTPUT_PATH, update
 from apollo.Scraper.LinkParser import extract_id
-from apollo.Scraper.youtubeScraper import scrapper
-from apollo.inference.inference import inference, inference_v2, load_model
+from apollo.inference.inference import inference_v2, load_model
 from apollo.Scraper.download_comments import download_comments
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 LOAD_MODEL_THREAD = None
-CHART_DATA = [0, 0]
-COMPLETED = False
-LIMIT = 50
-LOG_RESULT_DATA = None
-LOG_DATA = ''
+chart_data = [0, 0]
+log_data = ''
 DATA_STORE = defaultdict(list)
 
 
@@ -51,51 +43,29 @@ def add_header(response):
     """
     response.headers["X-UA-Compatible"] = "IE=Edge,chrome=1"
     response.headers["Cache-Control"] = "public, max-age=0"
-    # response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, public, max-age=0"
-    # response.headers["Expires"] = 0
-    # response.headers["Pragma"] = "no-cache"
-    # response.headers['Cache-Control'] = 'no-store'
     return response
 
 
-def scrape_data(COMMENT_LINK):
-    update(COMMENT_LINK)
-
-    output_file_name = scrapper()
-    return output_file_name
-
-
-def load_csv(COMMENT_LINK):
-
-    output_file_name = scrape_data(COMMENT_LINK)
-    outfile_path = OUTPUT_PATH + "/" + output_file_name
-    return outfile_path
-
-
-def final_infer(COMMENT_LINK, SENSITIVITY):
-
-    outfile_path = load_csv(COMMENT_LINK)
-    VALUES = inference(outfile_path, SENSITIVITY)
-    return VALUES
-
 def scrapper_v2(youtube_id, sensitivity, limit):
+    '''
+
+    Code modified from : https://github.com/egbertbouman/youtube-comment-downloader
+    :param youtube_id: ID of Youtube Video Link
+    :param sensitivity: Sensitivity tolerance level (To be used as threshold during inference)
+    :param limit: Number of comments to be scraped
+    :return: CSV file of output comments
+    '''
     try:
         # if LOAD_MODEL_THREAD is not None:
         LOAD_MODEL_THREAD.join()
-        global CHART_DATA
-        global COMPLETED
-        global LOG_RESULT_DATA
-        global LOG_DATA
-        global COMMENTS_STORE
+        global chart_data
+        global log_data
         global DATA_STORE
         
         filename = '{}_{}_{}.csv'.format(youtube_id, sensitivity, limit)
 
-        CHART_DATA = [0, 0]
-        COMPLETED = False
-        LOG_RESULT_DATA = None
-        LOG_DATA = ''
-        COMMENTS_STORE = []
+        chart_data = [0, 0]
+        log_data = ''
 
         df = pd.DataFrame(columns=['id', 'comment', 'score', 'sensitivity'])
         toxic_count, nontoxic_count = 0 , 0
@@ -105,10 +75,8 @@ def scrapper_v2(youtube_id, sensitivity, limit):
         sensitivity_list = []
 
         if not youtube_id:
-            LOG_DATA = 'error'
-            COMPLETED = True
-            CHART_DATA = [0, 0]
-            COMMENTS_STORE = []
+            log_data = 'error'
+            chart_data = [0, 0]
             raise ValueError("you need to specify a Youtube ID")
 
         print("Downloading Youtube comments for video:", youtube_id)
@@ -132,25 +100,22 @@ def scrapper_v2(youtube_id, sensitivity, limit):
                     toxic_count += 1
                 else:
                     nontoxic_count +=1
-                # CHART_DATA = [(toxic_count / (toxic_count + nontoxic_count)) * 100, (nontoxic_count / (toxic_count + nontoxic_count)) * 100]
-                CHART_DATA = [toxic_count, nontoxic_count]
-                LOG_DATA = ' '.join(['[' + str(count) + ']', str(comment_content), 'score: ' + str(score)])
-                EXTRA_LOG_DATA = [comment['content'], comment['time'], comment['author'], comment['votes'], comment['photo'], str(score)]
-                COMMENTS_STORE.append(EXTRA_LOG_DATA)
+
+                chart_data = [toxic_count, nontoxic_count]
+                # comment['author']
+                author_dummy_name = namegenerator.gen()
+                extra_log_data = [comment['content'], comment['time'], author_dummy_name, comment['votes'], comment['photo'], str(score)]
                 
 
                 if limit and count >= limit:
-                    COMPLETED = True
-                    DATA_STORE[youtube_id].append({'chart_data':CHART_DATA, 'extra_log_data': EXTRA_LOG_DATA, 'task_finished': True, 'success': True, 'index': count, 'filename': filename})
+                    DATA_STORE[youtube_id].append({'chart_data':chart_data, 'extra_log_data': extra_log_data, 'task_finished': True, 'success': True, 'index': count, 'filename': filename})
                     df['id'], df['comment'], df['score'], df['sensitivity'] = count_list, comment_list, score_list, sensitivity_list
                     LOG_RESULT_DATA = filename
                     filepath = os.path.abspath(os.path.join('./', 'downloads', filename))
                     df.to_csv(filepath, encoding='utf-8')
                     break
                 else:
-                    DATA_STORE[youtube_id].append({'chart_data':CHART_DATA, 'extra_log_data': EXTRA_LOG_DATA, 'task_finished': False, 'success': True, 'index': count, 'filename': filename})
-
-
+                    DATA_STORE[youtube_id].append({'chart_data':chart_data, 'extra_log_data': extra_log_data, 'task_finished': False, 'success': True, 'index': count, 'filename': filename})
 
                 print(comment_content, toxic_count, nontoxic_count, score)
                 sys.stdout.write("Downloaded %d comment(s)\r" % count)
@@ -161,28 +126,13 @@ def scrapper_v2(youtube_id, sensitivity, limit):
         else:
             print(f"The provided YouTube ID : {youtube_id} is invalid! ")
             DATA_STORE[youtube_id].append({'chart_data':[], 'extra_log_data': [], 'task_finished': True, 'success': False, 'index': -1, 'filename': ''})
-            LOG_DATA = 'error'
-            COMPLETED = True
-            CHART_DATA = [0, 0]
-            COMMENTS_STORE = []
+            log_data = 'error'
+            chart_data = [0, 0]
 
     except Exception as e:
         print("Error:", str(e))
         sys.exit(1)
 
-
-@app.route('/chart2-data')
-def chart2_data():
-    def send_processed_data():
-        global COMPLETED
-        while True:
-            json_data = json.dumps({'toxic_data': CHART_DATA, 'processed': COMPLETED, 'log_message': LOG_DATA, 'result_file': LOG_RESULT_DATA})
-            yield f"data:{json_data}\n\n"
-            if COMPLETED:
-                return
-            time.sleep(1)
-
-    return Response(send_processed_data(), mimetype='text/event-stream')
 
 
 @app.route('/chart-data', methods=['GET'])
@@ -229,7 +179,7 @@ def home():
     LOAD_MODEL_THREAD = threading.Thread(target=load_model, args=())
     LOAD_MODEL_THREAD.daemon = True
     LOAD_MODEL_THREAD.start()
-    # cache.clear()
+
     response = make_response(render_template("index.html"))
     response = add_header(response)
     return response
@@ -247,7 +197,6 @@ def predict():
 
     COMPLETED = False
     COMMENT_URL = [x for x in request.form.values()]
-    print('This..........', COMMENT_URL)
     if len(COMMENT_URL[0]) == 0:
         return jsonify(msg='URL missing', status='error')
     

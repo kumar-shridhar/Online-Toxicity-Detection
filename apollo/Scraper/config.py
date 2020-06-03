@@ -10,7 +10,6 @@ Code modified from : https://github.com/egbertbouman/youtube-comment-downloader
 
 import os
 
-
 def update(id):
     global YOUTUBE_ID
     YOUTUBE_ID = id

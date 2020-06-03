@@ -171,6 +171,17 @@
 		}, 500);
 	}
 
+
+	function getRandomColor() {
+		var letters = '0123456789ABCDEF';
+		var color = '#';
+		for (var i = 0; i < 6; i++) {
+			color += letters[Math.floor(Math.random() * 16)];
+		}
+		return color;
+	}
+
+
 	function create_log_node(img_src, name, time_posted, comment, score){
 		wrapper = document.createElement('div');
 		wrapper.className = 'wrapper';
@@ -181,6 +192,16 @@
 		img.src = img_src;
 		img.style.height = '100%';
 		img.style.width = '100%';
+
+		img_div = document.createElement('div');
+		img_div.style.backgroundColor = getRandomColor();
+		img_div.innerHTML = name.slice(0, 1).toUpperCase();
+		img_div.style.borderRadius = '50%';
+		img_div.style.height = '40px';
+		img_div.style.width = '40px';
+		img_div.style.fontWeight = 'bold';
+		img_div.style.fontSize = 'x-large';
+		img_div.className = 'set_log_option';
 
 		second = document.createElement('div');
 		second.className = 'second';
@@ -210,7 +231,8 @@
 		author_comment.innerHTML=comment;
 		author_comment.className = 'author_comment';
 
-		first.appendChild(img)
+		// first.appendChild(img)
+		first.appendChild(img_div)
 		author_header.appendChild(author_name);
 		author_header.appendChild(author_time_posted);
 		author_header.appendChild(toxic_score);
@@ -313,8 +335,9 @@
 							$('#predictbtn').prop('disabled', false);
 							$("[name='slide']").prop('disabled', false);
 							$("[name='commentslide']").prop('disabled', false);
-							if (data.result_file){
-								$('#progress').html('Result file saved in downloads folder: <b>' + data.result_file+'</b>');
+							if (data.filename){
+								// $('#progress').html('Result file saved in downloads folder: <b>' + data.filename+'</b>');
+								$('#progress').html("<a href='../../downloads/"+data.filename+"' download>Export Results</a>");
 							}
 							else{
 								$('#progress').html('<span style="color: #f05e23">Problem saving result file in downloads folder</span>');

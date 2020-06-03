@@ -313,8 +313,11 @@ a:active {
   overflow: hidden;
   padding-left: 12px;
 }
-.first img{
+.first.set_log_option span{
   border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  font-weight: bold;
 }
 .author_header{
   overflow: hidden;
@@ -340,6 +343,14 @@ a:active {
   font-size: 13px;
   color: black;
 }
+
+.author_dummypic{
+  padding-top: 0;
+  font-family: "Open Sans Semibold", "Segoe UI";
+  font-size: 13px;
+  color: black;
+}
+
 
 html,
 body {
@@ -383,7 +394,7 @@ body {
 }
 
 
-@media only screen and (max-device-height: 1024px) {
+/* @media only screen and (max-device-height: 1024px) {
   #inp_data{
     margin-top: 10%;
   }
@@ -408,10 +419,10 @@ body {
   .rightRapper{
     padding-top: 12%;
   }
-}
+} */
 
 
-@media only screen and (max-device-width: 720px) {
+@media only screen and (max-device-width: 460px) {
   #inp_data{
     margin-top: 10%;
   }
@@ -429,17 +440,21 @@ body {
   }
 
   .leftRapper{
-    width: 100%;
+    width: 80%;
     padding-top: 10%;
     border-right: solid 1px #0069D9;
+    margin-left: 10%;
+    margin-right: 10%;
+    
   }
 
   .rightRapper{
     padding-top: 0;
-    margin-top: 0;
+    margin-top: 10%;
     text-align: center;
-    width: 100%;
-    /* height: 10%; */
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
   }
 
   #progress{
