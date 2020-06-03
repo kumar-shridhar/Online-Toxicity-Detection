@@ -150,17 +150,6 @@ def chart_data():
     return Response(send_data(youtube_id), mimetype='text/event-stream')
 
 
-@app.route('/log-data')
-def log_data():
-    def send_log_data():
-        while len(COMMENTS_STORE)>0:
-            json_data = json.dumps({'log_data': COMMENTS_STORE.pop(0)})
-            yield f"data:{json_data}\n\n"
-            time.sleep(1)
-
-    return Response(send_log_data(), mimetype='text/event-stream')
-
-
 @app.route("/about.html")
 def about():
     return render_template("about.html")
