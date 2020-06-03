@@ -10,6 +10,8 @@
 
 ![.](apollo/Frontend/static/img/Apollo.gif) 
 
+---------------------------------------------------------------------------------------------------------
+
 ## How to run
 
 1. Clone the repo: ``` git clone https://github.com/kumar-shridhar/APOLLO-1.git``` 
@@ -23,12 +25,19 @@
 7. Go to ```localhost:8082``` and provide the YouTube URL, and set the ```sensitivity``` and ```number of comments```. The results will be displayed in a chart form. 
 8. A csv of the final results will be saved in the ```APOLLO-1/downloads``` folder.
 
+---------------------------------------------------------------------------------------------------------
+
+## References
+
+* [Egbertbouman](https://github.com/egbertbouman/youtube-comment-downloader)
+* [HuggingFace](https://github.com/huggingface/transformers)
+* [Xhlulu](https://www.kaggle.com/xhlulu/jigsaw-tpu-xlm-roberta)
+
+---------------------------------------------------------------------------------------------------------
 
 ### Contact
+
 Feel free to contact the authors in case of any issues. 
-* [Naveed Akram](https://github.com/n-akram)
-* [Ritu Yadav](https://github.com/RituYadav92)
-* [Venkatesh Iyer](https://github.com/venkyiyer)
-* [Sadique Adnan Siddiqui](https://github.com/sadique-adnan)
-* [Ashutosh Mishra](https://github.com/ashutoshmishra1014)
-* [Kumar Shridhar](https://kumar-shridhar.github.io/)
+
+[Naveed Akram](https://github.com/n-akram), [Ritu Yadav](https://github.com/RituYadav92), [Venkatesh Iyer](https://github.com/venkyiyer)
+[Sadique Adnan Siddiqui](https://github.com/sadique-adnan), [Ashutosh Mishra](https://github.com/ashutoshmishra1014), [Kumar Shridhar](https://kumar-shridhar.github.io/)
