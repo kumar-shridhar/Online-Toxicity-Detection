@@ -8,7 +8,7 @@
 
 **APOLLO-1** is one of the many APOLLO projects to be launched in future. This project is aimed at developing an application that detects **toxicity in an online conversation**.
 
-![.](apollo/Frontend/static/img/Apollo.gif) 
+![.](apollo/Frontend/static/img/APOLLO1.gif) 
 
 ---------------------------------------------------------------------------------------------------------
 
