@@ -23,7 +23,7 @@
     * ``` cd APOLLO-1```
     * ``` python apollo/Frontend/app.py```
 7. Go to ```localhost:8082``` and provide the YouTube URL, and set the ```sensitivity``` and ```number of comments```. The results will be displayed in a chart form. 
-8. A csv of the final results will be saved in the ```APOLLO-1/downloads``` folder.
+8. A .csv file of the final results will be saved in the ```APOLLO-1/downloads``` folder.
 
 ---------------------------------------------------------------------------------------------------------
 
