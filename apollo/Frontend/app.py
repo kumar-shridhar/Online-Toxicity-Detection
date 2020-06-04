@@ -21,6 +21,9 @@ from apollo.Scraper.config import (
     YOUTUBE_VIDEO_URL,
 )
 
+if not(os.path.isdir(os.path.join('./', 'downloads'))):
+    os.mkdir(os.path.join('./', 'downloads'))
+
 from apollo.Scraper.LinkParser import extract_id
 from apollo.inference.inference import inference_v2, load_model
 from apollo.Scraper.download_comments import download_comments
@@ -209,4 +212,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8082, debug=True, threaded=True)
+    app.run(debug=True, threaded=True)

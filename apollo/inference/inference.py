@@ -49,3 +49,4 @@ def load_model():
     global TOKENIZER
     if (LOADED_MODEL is None) and (TOKENIZER is None):
         LOADED_MODEL, TOKENIZER = infer()
+    print("********** MODEL IS NOW LOADED AND THE APP IS READY FOR USE ****************")
