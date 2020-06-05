@@ -4,7 +4,7 @@
 
 ![.](apollo/Frontend/static/img/LogoMakr_2DoISf.png)                                                                   
 
-# APOLLO-1: Online Toxicity Classification
+# Online Toxicity Detection
 
 **APOLLO-1** is one of the many APOLLO projects to be launched in future. This project is aimed at developing an application that detects **toxicity in an online conversation**.
 
