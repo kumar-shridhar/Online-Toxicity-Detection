@@ -114,7 +114,8 @@ def scrapper_v2(youtube_id, sensitivity, limit):
                     DATA_STORE[youtube_id].append({'chart_data':chart_data, 'extra_log_data': extra_log_data, 'task_finished': True, 'success': True, 'index': count, 'filename': filename})
                     df['id'], df['comment'], df['score'], df['sensitivity'] = count_list, comment_list, score_list, sensitivity_list
                     LOG_RESULT_DATA = filename
-                    filepath = os.path.abspath(os.path.join('./', 'downloads', filename))
+#                     filepath = os.path.abspath(os.path.join('./', 'downloads', filename))
+                    filepath = os.path.abspath(os.path.join('./apollo/Frontend/static', filename))
                     df.to_csv(filepath, encoding='utf-8')
                     break
                 else:
