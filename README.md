@@ -22,7 +22,7 @@ Project **Apollo** consist of a series of projects that are aimed at using Deep 
 6. Run command: 
     * ``` cd Online-Toxicity-Detection```
     * ``` python apollo/Frontend/app.py```
-7. Go to ```localhost:8082``` and provide the YouTube URL, and set the ```sensitivity``` and ```number of comments```. The results will be displayed in a chart form. 
+7. Go to the link in the console and provide the YouTube URL, and adjust the ```sensitivity``` and ```number of comments```. The results will be displayed in a chart form. 
 8. You can export the ```.csv``` file of the final results by clicking on ```export results```.
 
 ---------------------------------------------------------------------------------------------------------
