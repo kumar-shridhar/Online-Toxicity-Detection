@@ -32,7 +32,9 @@ def regular_encode(texts, tokenizer, maxlen=512):
     return np.array(enc_di["input_ids"])
 
 
-def inference_v2(comment_text):
+def inference_v2(comment_text, sensitivity):
+    # global T_COUNT
+    # global NT_COUNT
 
     comment_text = [comment_text]
     x_test = regular_encode(comment_text, TOKENIZER, maxlen=MAX_LEN)
@@ -47,3 +49,4 @@ def load_model():
     global TOKENIZER
     if (LOADED_MODEL is None) and (TOKENIZER is None):
         LOADED_MODEL, TOKENIZER = infer()
+    print("********** MODEL IS NOW LOADED AND THE APP IS READY FOR USE ****************")
