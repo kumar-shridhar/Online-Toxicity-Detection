@@ -337,7 +337,7 @@
 							$("[name='commentslide']").prop('disabled', false);
 							if (data.filename){
 								// $('#progress').html('Result file saved in downloads folder: <b>' + data.filename+'</b>');
-								$('#progress').html("<a href='../../downloads/"+data.filename+"' download>Export Results</a>");
+								$('#progress').html("<a href='static/"+data.filename+"' download>Export Results</a>");
 							}
 							else{
 								$('#progress').html('<span style="color: #f05e23">Problem saving result file in downloads folder</span>');
