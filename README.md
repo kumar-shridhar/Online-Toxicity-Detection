@@ -4,9 +4,9 @@
 
 ![.](apollo/Frontend/static/img/LogoMakr_2DoISf.png)                                                                   
 
-# APOLLO-1: Online Toxicity Detection
+# Online Toxicity Detection
 
-**APOLLO-1** is one of the many APOLLO projects to be launched in future. This project is aimed at developing an application that detects **toxicity in an online conversation**.
+Project **Apollo** consist of a series of projects that are aimed at using Deep Learning for various applications. This work presents the first project: **APOLLO-1**. This project is aimed at developing an application that detects **toxicity in an online conversation**.
 
 ![.](apollo/Frontend/static/img/APOLLO1.gif) 
 
