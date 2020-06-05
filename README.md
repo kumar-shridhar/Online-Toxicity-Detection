@@ -8,7 +8,9 @@
 
 **APOLLO-1** is one of the many APOLLO projects to be launched in future. This project is aimed at developing an application that detects **toxicity in an online conversation**.
 
-![.](apollo/Frontend/static/img/Apollo.gif) 
+![.](apollo/Frontend/static/img/APOLLO1.gif) 
+
+---------------------------------------------------------------------------------------------------------
 
 ## How to run
 
@@ -21,14 +23,21 @@
     * ``` cd APOLLO-1```
     * ``` python apollo/Frontend/app.py```
 7. Go to ```localhost:8082``` and provide the YouTube URL, and set the ```sensitivity``` and ```number of comments```. The results will be displayed in a chart form. 
-8. A csv of the final results will be saved in the ```APOLLO-1/downloads``` folder.
+8. A .csv file of the final results will be saved in the ```APOLLO-1/downloads``` folder.
 
+---------------------------------------------------------------------------------------------------------
+
+## References
+
+* [Egbertbouman](https://github.com/egbertbouman/youtube-comment-downloader)
+* [HuggingFace](https://github.com/huggingface/transformers)
+* [Xhlulu](https://www.kaggle.com/xhlulu/jigsaw-tpu-xlm-roberta)
+
+---------------------------------------------------------------------------------------------------------
 
 ### Contact
+
 Feel free to contact the authors in case of any issues. 
-* [Naveed Akram](https://github.com/n-akram)
-* [Ritu Yadav](https://github.com/RituYadav92)
-* [Venkatesh Iyer](https://github.com/venkyiyer)
-* [Sadique Adnan Siddiqui](https://github.com/sadique-adnan)
-* [Ashutosh Mishra](https://github.com/ashutoshmishra1014)
-* [Kumar Shridhar](https://kumar-shridhar.github.io/)
+
+[Naveed Akram](https://github.com/n-akram), [Ritu Yadav](https://github.com/RituYadav92), [Venkatesh Iyer](https://github.com/venkyiyer)
+[Sadique Adnan Siddiqui](https://github.com/sadique-adnan), [Ashutosh Mishra](https://github.com/ashutoshmishra1014), [Kumar Shridhar](https://kumar-shridhar.github.io/)
