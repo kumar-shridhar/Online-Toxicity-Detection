@@ -119,5 +119,4 @@ dependencies:
     - urllib3==1.25.9
     - werkzeug==1.0.1
     - wtforms==2.3.1
-prefix: C:\Users\akram\Anaconda3\envs\apollo
 
