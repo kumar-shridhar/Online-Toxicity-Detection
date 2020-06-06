@@ -2,11 +2,14 @@
 [![TensorFlow 2.1](https://img.shields.io/badge/tensorflow-2.1.1-blue.svg)](https://github.com/tensorflow/tensorflow/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/kumar-shridhar/APOLLO-1/blob/master/LICENSE)
 
-![.](apollo/Frontend/static/img/LogoMakr_2DoISf.png)                                                                   
+![.](apollo/Frontend/static/img/LogoMakr_2DoISf.png) 
+
+##### Read more about the project in our [blog](https://medium.com/@shridhar743/are-you-indulging-in-a-toxic-conversation-c67708b8895). 
 
 # Online Toxicity Detection
 
 Project **Apollo** consist of a series of projects that are aimed at using Deep Learning for various applications. This work presents the first project: **APOLLO-1**. This project is aimed at developing an application that detects **toxicity in an online conversation**.
+
 
 ![.](apollo/Frontend/static/img/APOLLO1.gif) 
 
